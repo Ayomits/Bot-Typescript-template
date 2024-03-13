@@ -1,7 +1,5 @@
 import { Client, REST, Routes } from "discord.js";
 import InteractionCollector from "../collectors/interaction.collector";
-import { DataSource } from "typeorm";
-
 // Example service and how it works
 
 export default class EventReadyService {
@@ -17,31 +15,7 @@ export default class EventReadyService {
     await this.commandRegister(this.client);
   }
 
-  public async collectAllInvites() {
-    const guilds = this.client.guilds.cache;
-    guilds.forEach(async (guild) => {
-      const invites = await guild.invites.fetch();
-      invites.forEach((invite) => {
-        invite.client.invites?.set(invite.code, invite.uses);
-      });
-    });
-  }
-
-  public async connectToDb() {
-    try {
-      await new DataSource({
-        type: "postgres",
-        username: process.env.DB_USER,
-        database: process.env.DB_NAME,
-        password: process.env.DB_PASSWORD,
-        entities: ["../../../**/*.entity{.ts,.js}"],
-        synchronize: true,
-      }).initialize();
-      console.log(`[ConnectToDb] успешный коннект к базе данных`);
-    } catch (err) {
-      console.log(``);
-    }
-  }
+  public async connectToDb() {}
 
   // Регистрация Слэш команд
   private async commandRegister(client: Client) {

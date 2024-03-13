@@ -4,13 +4,7 @@ import EventHandlerService from "./events/system/collectors/event.collector";
 import {
   Button,
   SlashCommand,
-  Event,
-  UserID,
-  InviteCode,
   CustomId,
-  Intervals,
-  GuildID,
-  AuditCache,
 } from "./base.types";
 
 config();
@@ -35,11 +29,6 @@ const client: Client = new Client({ intents: intents });
 
 client.commands = new Collection<string, SlashCommand>(); 
 client.buttons = new Collection<CustomId, Button>(); 
-client.events = new Collection<string, Event>(); 
-client.voiceUsers = new Collection<UserID, Intervals>();
-client.invites = new Collection<InviteCode, number>(); 
-client.auditCache = new Collection<GuildID, AuditCache>();
-
 new EventHandlerService(client); 
 
 client.login(process.env.TOKEN); 
